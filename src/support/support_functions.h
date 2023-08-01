@@ -19,6 +19,8 @@ int is_null(const void *ptr);
 int is_correct_matrix(const matrix_t *A);
 int is_correct_sizes(int rows, int columns);
 int is_square(const matrix_t *matrix) ;
-int get_minor(matrix_t *A, matrix_t *result, int row, int colum);
 int is_eq_size(const matrix_t *A, const matrix_t *B);
+void s21_get_matrix(int row, int col, matrix_t *A, matrix_t *result);
+double s21_get_determinant(matrix_t *A);
+double get_rand(double min, double max);
 #endif

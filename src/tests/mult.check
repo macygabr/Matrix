@@ -1,17 +1,30 @@
 # test mult_number_1
-  matrix_t test = {0}, result = {0};
-  double num = 0;
-  s21_create_matrix(3, 7, &test);
-  s21_create_matrix(2, 6, &result);
-  ck_assert_int_eq(s21_mult_number(&test, num, &result), CALCULATION_ERROR);
-  s21_remove_matrix(&test);
-  s21_remove_matrix(&result);
+  int rows = rand() % 100 + 1;
+  int cols = rand() % 100 + 1;
+  matrix_t m = {0};
+  s21_create_matrix(rows, cols, &m);
+  matrix_t check = {0};
+  s21_create_matrix(rows, cols, &check);
+  double mult_number = get_rand(-10e5, 10e5);
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      m.matrix[i][j] = get_rand(DBL_MIN, DBL_MAX);
+      check.matrix[i][j] = m.matrix[i][j] * mult_number;
+    }
+  }
+  matrix_t res = {0};
+  ck_assert_int_eq(s21_mult_number(&m, mult_number, &res), OK);
+  ck_assert_int_eq(s21_eq_matrix(&check, &res), SUCCESS);
+  s21_remove_matrix(&m);
+  s21_remove_matrix(&res);
+  s21_remove_matrix(&check);
+
 
 
 # test mult_number_2
   matrix_t test = {0}, result = {0};
   double num = -9876.54321;
-  s21_create_matrix(5, 5, &test);
+  s21_create_matrix(-5, 5, &test);
   ck_assert_int_eq(s21_mult_number(&test, num, &result),
                    INCORRECT_MATRIX);
   s21_remove_matrix(&test);

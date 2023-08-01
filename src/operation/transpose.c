@@ -2,14 +2,15 @@
 #include "../support/support_functions.h"
 
 int s21_transpose(matrix_t *A, matrix_t *result) {
-  if (!is_correct_matrix(A) || !is_correct_matrix(result))
-    return INCORRECT_MATRIX;
-  if (A->rows != result->columns || A->columns != result->rows)
-    return CALCULATION_ERROR;
+  if (!is_correct_matrix(A)) return INCORRECT_MATRIX;
 
-  for (int i = 0; i < result->rows; i++)
-    for (int j = 0; j < result->columns; j++)
-      result->matrix[i][j] = A->matrix[j][i];
+  s21_create_matrix(A->columns, A->rows, result);
+
+  for (int i = 0; i < A->rows; i++) {
+    for (int j = 0; j < A->columns; j++) {
+      result->matrix[j][i] = A->matrix[i][j];
+    }
+  }
 
   return 0;
 }

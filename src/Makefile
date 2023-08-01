@@ -52,7 +52,7 @@ clang:
 	clang-format -style="{BasedOnStyle: Google}" -n */*.c *.h
 
 test: clean s21_matrix.a clang check 
-	$(CC) $(WWW) -std=c11  tests/s21_test.c s21_matrix.a -o tests/test $(TEST_FLAGS) 
+	$(CC) $(WWW) -g -std=c11  tests/s21_test.c s21_matrix.a -o tests/test $(TEST_FLAGS) 
 	./tests/test
 
 valgrind: test
