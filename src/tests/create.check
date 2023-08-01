@@ -1,0 +1,26 @@
+# test create_1
+  matrix_t test = {0};
+  ck_assert_int_eq(s21_create_matrix(-3, -4, &test), INCORRECT_MATRIX);
+
+
+# test create_2
+  matrix_t test = {0};
+  ck_assert_int_eq(s21_create_matrix(0, 0, &test), INCORRECT_MATRIX);
+
+
+# test create_3
+  matrix_t test = {0};
+  ck_assert_int_eq(s21_create_matrix(5.5, 2.7, &test), OK);
+  if (test.matrix) {
+    s21_remove_matrix(&test);
+    ck_assert(!test.matrix);
+  }
+
+
+# test create_4
+  matrix_t test = {0};
+  ck_assert_int_eq(s21_create_matrix(1, 1, &test), OK);
+  if (test.matrix) {
+    s21_remove_matrix(&test);
+    ck_assert(!test.matrix);
+  }

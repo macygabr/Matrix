@@ -1,0 +1,57 @@
+// # test transpose_1
+//   matrix_t test = {0}, result = {0};
+//   int M = 1 + rand() % 9, N = 1 + rand() % 9;
+
+//   s21_create_matrix(M, N, &test);
+//   s21_create_matrix(N, M, &result);
+//   for (int i = 0; i < M; i++)
+//     for (int j = 0; j < N; j++)
+//       test.matrix[i][j] = (rand() - rand()) / 987654.3210987;
+
+//   ck_assert_int_eq(s21_transpose(&test, &result), OK);
+//   for (int i = 0; i < M; i++)
+//     for (int j = 0; j < N; j++)
+//       ck_assert_double_eq(test.matrix[i][j], result.matrix[j][i]);
+
+//   s21_remove_matrix(&test);
+//   s21_remove_matrix(&result);
+
+
+// # test transpose_2
+//   matrix_t test = {0}, result = {0};
+
+//   s21_create_matrix(3, 7, &test);
+//   s21_create_matrix(3, 7, &result);
+
+//   ck_assert_int_eq(s21_transpose(&test, &result), CALCULATION_ERROR);
+
+//   s21_remove_matrix(&test);
+//   s21_remove_matrix(&result);
+
+
+// # test transpose_3
+//   matrix_t test = {0}, result = {0};
+
+//   s21_create_matrix(5, 5, &test);
+
+//   ck_assert_int_eq(s21_transpose(&test, &result), INCORRECT_MATRIX);
+
+//   s21_remove_matrix(&test);
+
+
+# test transpose_matrix2
+  int rows = rand() % 100 + 1;
+  int cols = rand() % 100 + 1;
+  rows = -rows;
+  cols = -cols;
+  matrix_t m = {0};
+  s21_create_matrix(rows, cols, &m);
+  matrix_t check = {0};
+  s21_create_matrix(cols, rows, &check);
+
+  matrix_t res = {0};
+  ck_assert_int_eq(s21_transpose(&m, &res), INCORRECT_MATRIX);
+
+  s21_remove_matrix(&m);
+  s21_remove_matrix(&res);
+  s21_remove_matrix(&check);

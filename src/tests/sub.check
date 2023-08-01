@@ -1,0 +1,50 @@
+# test sub_1
+  matrix_t test_1 = {0}, test_2 = {0}, result = {0};
+
+  s21_create_matrix(3, 5, &test_1);
+  s21_create_matrix(3, 5, &test_2);
+  s21_create_matrix(2, 5, &result);
+
+  ck_assert_int_eq(s21_sub_matrix(&test_1, &test_2, &result),
+                   CALCULATION_ERROR);
+
+  s21_remove_matrix(&test_1);
+  s21_remove_matrix(&test_2);
+  s21_remove_matrix(&result);
+
+# test sub_2
+  matrix_t test_1 = {0}, test_2 = {0}, result = {0};
+
+  s21_create_matrix(3, 5, &test_1);
+  s21_create_matrix(3, 5, &result);
+
+  ck_assert_int_eq(s21_sub_matrix(&test_1, &test_2, &result),
+                   INCORRECT_MATRIX);
+
+  s21_remove_matrix(&test_1);
+  s21_remove_matrix(&test_2);
+  s21_remove_matrix(&result);
+
+# test sub_3
+  matrix_t test_1 = {0}, test_2 = {0}, result = {0};
+  int M = 1 + rand() % 9, N = 1 + rand() % 9;
+
+  s21_create_matrix(M, N, &test_1);
+  s21_create_matrix(M, N, &test_2);
+  s21_create_matrix(M, N, &result);
+  for (int i = 0; i < M; i++)
+    for (int j = 0; j < N; j++) {
+      test_1.matrix[i][j] = (rand() - rand()) / 10000.123;
+      test_2.matrix[i][j] = (rand() - rand()) / 10000.123;
+    }
+
+  ck_assert_int_eq(s21_sub_matrix(&test_1, &test_2, &result), OK);
+  for (int i = 0; i < M; i++)
+    for (int j = 0; j < N; j++)
+      ck_assert_double_eq_tol((test_1.matrix[i][j] - test_2.matrix[i][j]),
+                              result.matrix[i][j], EPS);
+
+  s21_remove_matrix(&test_1);
+  s21_remove_matrix(&test_2);
+  s21_remove_matrix(&result);
+

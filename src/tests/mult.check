@@ -1,0 +1,17 @@
+# test mult_number_1
+  matrix_t test = {0}, result = {0};
+  double num = 0;
+  s21_create_matrix(3, 7, &test);
+  s21_create_matrix(2, 6, &result);
+  ck_assert_int_eq(s21_mult_number(&test, num, &result), CALCULATION_ERROR);
+  s21_remove_matrix(&test);
+  s21_remove_matrix(&result);
+
+
+# test mult_number_2
+  matrix_t test = {0}, result = {0};
+  double num = -9876.54321;
+  s21_create_matrix(5, 5, &test);
+  ck_assert_int_eq(s21_mult_number(&test, num, &result),
+                   INCORRECT_MATRIX);
+  s21_remove_matrix(&test);
